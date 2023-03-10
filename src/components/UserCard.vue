@@ -16,6 +16,7 @@ export default {
 </script>
 <style>
 .show{
+    width: 50%;
     border: red solid 2px;
 }
 </style>

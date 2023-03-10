@@ -2,17 +2,19 @@
   <div id="app">
     <AddForm v-on:addUser="addUser"/>
     <UserCard v-bind:allUsers="users" msg="my message"/>
+    <WaitSpinner/>
   </div>
 </template>
 
 <script>
 import AddForm from './components/AddForm.vue'
 import UserCard from './components/UserCard.vue'
+import WaitSpinner from './components/WaitSpinner.vue'
 
 export default {
   name: 'App',
   components: {
-    AddForm, UserCard
+    AddForm, UserCard, WaitSpinner
   },
   data: function() {
     return {
