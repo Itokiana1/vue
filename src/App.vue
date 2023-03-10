@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <AddForm v-on:addUser="addUser"/>
-    <UserCard v-bind:allUsers="users" msg="my message"/>
-    <WaitSpinner/>
+    <WaitSpinner v-if="showLoading" />
+    <AddForm v-else v-on:addUser="addUser" />
+    <UserCard v-bind:allUsers="users" msg="my message" />
+    <button v-on:click="handleToggle">Toggle</button>
   </div>
 </template>
 
@@ -16,18 +17,30 @@ export default {
   components: {
     AddForm, UserCard, WaitSpinner
   },
-  data: function() {
+  data: function () {
     return {
-      users: []
+      users: [],
+      showLoading: true,
     }
   },
   methods: {
-    addUser:function(newUser) {
+    addUser: function (newUser) {
       console.log("called", newUser);
       this.users.push(newUser);
+    },
+    handleToggle: function () {
+      // console.log("clicked");
+      this.showLoading = !this.showLoading
     }
-  }
-  
+  },
+  mounted() {
+    console.log("app monted");
+    setTimeout(function () {
+      this.showLoading = false;
+      // console.log(this.showLoading);
+      // console.log("after 2 seconds");
+    }, 2000)
+  },
 }
 </script>
 
