@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <WaitSpinner v-if="showLoading" />
-    <AddForm v-else v-on:addUser="addUser" />
-    <UserCard v-bind:allUsers="users" msg="my message" />
-    <button v-on:click="handleToggle">Toggle</button>
+    <UserCard v-if="!showLoading" v-bind:allUsers="users" msg="my message" />
+    <AddForm v-if="!showLoading" v-on:addUser="addUser" v-on:showModal="handleOpenModal" :test="test"/>
+    <button v-if="!showLoading" v-on:click="handleToggle">Toggle</button>
+    <ModalForm v-if="showModal" v-on:closeModal="handleCloseModal"/>
   </div>
 </template>
 
@@ -11,16 +12,20 @@
 import AddForm from './components/AddForm.vue'
 import UserCard from './components/UserCard.vue'
 import WaitSpinner from './components/WaitSpinner.vue'
+import ModalForm from './components/ModalForm.vue'
 
 export default {
   name: 'App',
   components: {
-    AddForm, UserCard, WaitSpinner
+    AddForm, UserCard, WaitSpinner, ModalForm
   },
   data: function () {
     return {
       users: [],
       showLoading: true,
+      showModal: false,
+      closeModal:false,
+      test: '',
     }
   },
   methods: {
@@ -28,19 +33,25 @@ export default {
       console.log("called", newUser);
       this.users.push(newUser);
     },
-    handleToggle: function () {
+    handleToggle() {
       // console.log("clicked");
       this.showLoading = !this.showLoading
+    },
+    handleOpenModal() {
+      // console.log("open");
+      this.showModal = !this.showModal
+    },
+    handleCloseModal () {
+      // console.log("closed");
+      this.showModal = !this.showModal
     }
   },
   mounted() {
-    console.log("app monted");
-    setTimeout(function () {
-      this.showLoading = false;
-      // console.log(this.showLoading);
-      // console.log("after 2 seconds");
-    }, 2000)
-  },
+    // console.log("app mounted");
+    setTimeout(
+      // console.log("after 2 sec");
+      this.handleToggle, 2000)
+  }
 }
 </script>
 

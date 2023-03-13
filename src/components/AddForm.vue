@@ -10,13 +10,16 @@
             <label for="role">Role :
                 <input type="text" v-model="role" placeholder="Your role...">
             </label>
-            <button type="submit">Add</button>
+            <button class="button" type="submit">Add</button>
         </form>
+        <button class="openbtn" v-on:click="openModal">Open Modal</button>
+        <button v-on:click="test">Harlin</button>
     </div>
 </template>
 <script>
 export default {
     name: 'AddForm',
+    props: ['test'],
     data: function () {
         return {
             name: '',
@@ -27,12 +30,18 @@ export default {
     methods: {
         handleAddUser() {
             this.$emit('addUser',{name:this.name, age:this.age, role:this.role})
+        },
+        openModal(){
+            this.$emit('showModal')
+        },
+        testKely() {
+            // this.test = 'Harlin Davidson'
         }
-    }
+    },
 }
 </script>
 <style>
-button {
+.button {
     width: 150px;
     align-items: center;
     margin: auto;
